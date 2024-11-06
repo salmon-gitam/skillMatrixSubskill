@@ -2,13 +2,11 @@ import { useState, useEffect } from 'react'
 import './App.css'
 
 function App() {
-   // State variables for dropdown selections
    const [selectedFaculty, setSelectedFaculty] = useState('');
    const [selectedCourse, setSelectedCourse] = useState('');
    const [selectedSkillType, setSelectedSkillType] = useState('');
    const [selectedSkill, setSelectedSkill] = useState('');
  
-   // Original data (permanent data)
    const [data, setData] = useState([
     {
       id: 1,
@@ -1333,10 +1331,6 @@ function App() {
       subskill: 'Plotting Class Diagrams',
       familiar: true,
     },
-    // Now proceeding to the next course: 'Computer Networks'
-    // Faculty: 'Salmon Joy', 'Sivarajani S', etc.
-  
-    // Entries for 'Computer Networks' taught by 'Salmon Joy'
     {
       id: 148,
       faculty: 'Salmon Joy',
@@ -1454,7 +1448,6 @@ function App() {
       subskill: 'DNS',
       familiar: true,
     },
-    // Note: There is an empty subskill in the CSV for Application Layer; we'll skip it.
     {
       id: 161,
       faculty: 'Salmon Joy',
@@ -1473,7 +1466,6 @@ function App() {
       subskill: 'UDP Protocol',
       familiar: true,
     },
-    // Another empty subskill under Transprt Layer; we'll skip it.
     {
       id: 163,
       faculty: 'Salmon Joy',
@@ -1672,7 +1664,6 @@ function App() {
       subskill: 'TCP Window Scaling',
       familiar: false,
     },
-    // Entries for 'Computer Networks' taught by 'Sivarajani S'
     {
       id: 185,
       faculty: 'Sivarajani S',
@@ -2252,15 +2243,12 @@ function App() {
   ]
   );
  
-   // Edited data (temporary changes)
    const [editedData, setEditedData] = useState([...data]);
  
-   // Update editedData whenever data changes
    useEffect(() => {
      setEditedData([...data]);
    }, [data]);
  
-   // Handler to toggle familiarity status in editedData
    const handleFamiliarityToggle = (id) => {
      const updatedEditedData = editedData.map((item) =>
        item.id === id ? { ...item, familiar: !item.familiar } : item
@@ -2268,20 +2256,16 @@ function App() {
      setEditedData(updatedEditedData);
    };
  
-   // Handler for submit button to update data with editedData
    const handleSubmit = () => {
      setData(editedData);
-     // Optionally, you can show a message or perform other actions
      alert('Changes saved successfully.');
    };
  
-   // Extract unique options for dropdowns from the original data
    const faculties = [...new Set(data.map((item) => item.faculty))];
    const courses = [...new Set(data.map((item) => item.course))];
    const skillTypes = [...new Set(data.map((item) => item.skillType))];
    const skills = [...new Set(data.map((item) => item.skill))];
  
-   // Filtered data based on dropdown selections, using editedData
    const filteredData = editedData.filter((item) => {
      return (
        (selectedFaculty === '' || item.faculty === selectedFaculty) &&
